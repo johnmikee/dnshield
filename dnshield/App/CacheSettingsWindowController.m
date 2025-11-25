@@ -8,6 +8,7 @@
 #import <os/log.h>
 #import <sqlite3.h>
 
+#import <Common/Defaults.h>
 #import "CacheSettingsWindowController.h"
 #import "DNShieldPreferences.h"
 #import "Defaults.h"
@@ -48,7 +49,7 @@ static os_log_t logHandle = nil;
   self = [super initWithWindowNibName:@""];
   if (self) {
     if (!logHandle) {
-      logHandle = os_log_create("com.dnshield.app", "CacheSettings");
+      logHandle = os_log_create(kDNShieldPreferenceDomain.UTF8String, "CacheSettings");
     }
     [self setupWindow];
     [self loadData];

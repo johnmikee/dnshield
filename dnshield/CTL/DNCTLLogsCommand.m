@@ -27,22 +27,22 @@ static NSArray<NSDictionary*>* DefaultSubsystemSelectors(void) {
     selectors = @[
       @{
         @"kind" : ClauseKindString(DNSubsystemSelectorKindSubsystem),
-        @"value" : @"com.dnshield.app",
+        @"value" : kDNShieldPreferenceDomain,
         @"match" : @"prefix"
       },
       @{
         @"kind" : ClauseKindString(DNSubsystemSelectorKindSubsystem),
-        @"value" : @"com.dnshield.extension",
+        @"value" : kDefaultExtensionBundleID,
         @"match" : @"prefix"
       },
       @{
         @"kind" : ClauseKindString(DNSubsystemSelectorKindSubsystem),
-        @"value" : @"com.dnshield.daemon",
+        @"value" : kDNShieldDaemonBundleID,
         @"match" : @"prefix"
       },
       @{
         @"kind" : ClauseKindString(DNSubsystemSelectorKindProcess),
-        @"value" : @"com.dnshield.extension",
+        @"value" : kDefaultExtensionBundleID,
         @"match" : @"exact"
       }
     ];
@@ -303,17 +303,20 @@ static void PrintLogsUsage(void) {
   printf("\nExamples:\n");
   printf("  dnshield-ctl logs --last 1d\n");
   printf("  dnshield-ctl logs -f format json\n");
-  printf("  dnshield-ctl logs subsystems --include subsystem:com.dnshield.app\n");
+  printf("  dnshield-ctl logs subsystems --include subsystem:%s\n",
+         kDNShieldPreferenceDomain.UTF8String);
   printf("  dnshield-ctl logs categories --exclude general\n");
 }
 
 static NSString* BasePredicate(void) {
-  return @"subsystem BEGINSWITH \"com.dnshield.app\" OR "
-          "subsystem BEGINSWITH \"com.dnshield.extension\" OR "
-          "subsystem BEGINSWITH \"com.dnshield.daemon\" OR "
-          "process == \"DNShield\" OR "
-          "process == \"com.dnshield.extension\" OR "
-          "process == \"dnshield-daemon\"";
+  return [NSString stringWithFormat:@"subsystem BEGINSWITH \"%@\" OR "
+                                     "subsystem BEGINSWITH \"%@\" OR "
+                                     "subsystem BEGINSWITH \"%@\" OR "
+                                     "process == \"DNShield\" OR "
+                                     "process == \"%@\" OR "
+                                     "process == \"dnshield-daemon\"",
+                                    kDNShieldPreferenceDomain, kDefaultExtensionBundleID,
+                                    kDNShieldDaemonBundleID, kDefaultExtensionBundleID];
 }
 
 void DNCTLCommandLogs(NSArray<NSString*>* args) {

@@ -49,6 +49,10 @@ dnshield-dev/
 | `make install`            | Copy DNShield.app from DerivedData to `/Applications` (macOS).     |
 | `make clean`              | Remove `build/` / `dist/` and clean the Xcode project.             |
 
+### Signing identities
+
+- `make identity IDENTITY=default` renders `dnshield/Configurations/Identity.xcconfig` and `dnshield/Common/DNIdentity.h` from `config/identities/<name>.json`. The target runs automatically before `make mac-app` / `make mac-app-enterprise`, ensuring bundle identifiers, provisioning profiles, and certificate names stay in sync before each build.
+
 Requirements: Xcode with Command Line Tools installed. Go 1.21+ is required for `tools/cmd/manifest-editor` and `tools/cmd/watchdog`.
 
 ## CLI Overview (`dnshield-ctl`)

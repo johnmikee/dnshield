@@ -97,6 +97,7 @@ dnshield/dist/
 /server/dnshield-server*
 /resources/scripts/dns-chain-test.log
 code_review/
+config/identities/.active
 
 # Temporary files
 *.tmp

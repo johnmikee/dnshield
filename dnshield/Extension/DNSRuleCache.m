@@ -5,6 +5,7 @@
 //  Simple LRU cache for DNS rule lookups
 //
 
+#import <Common/Defaults.h>
 #import <os/log.h>
 #import <stdatomic.h>
 
@@ -30,7 +31,7 @@ static os_log_t logHandle;
 
 + (void)initialize {
   if (self == [DNSRuleCache class]) {
-    logHandle = os_log_create("com.dnshield.extension", "RuleCache");
+    logHandle = os_log_create(kDefaultExtensionBundleID.UTF8String, "RuleCache");
   }
 }
 

@@ -6,6 +6,7 @@
 //
 
 #import "LogEntry.h"
+#import <Common/Defaults.h>
 #import <OSLog/OSLog.h>
 
 @implementation LogEntry
@@ -53,7 +54,7 @@
       }
 
       // Clean up system extension paths
-      if ([executableName isEqualToString:@"com.dnshield.extension"]) {
+      if ([executableName isEqualToString:kDefaultExtensionBundleID]) {
         entry.process = @"dnshield.extension";
       } else if ([executableName isEqualToString:@"DNShield"]) {
         entry.process = @"DNShield";

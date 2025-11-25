@@ -5,6 +5,7 @@
 
 #import "DNSStateColorPreferencesController.h"
 
+#import <Common/DNShieldPreferences.h>
 #import "LoggingManager.h"
 
 #include <arpa/inet.h>
@@ -392,8 +393,7 @@
 
     if (managedPrefFiles) {
       for (NSString* dirName in managedPrefFiles) {
-        NSString* plistPath =
-            [NSString stringWithFormat:@"%@/%@/com.dnshield.app.plist", managedPrefsPath, dirName];
+        NSString* plistPath = DNManagedPreferencesPathForUser(dirName);
         NSDictionary* managedPrefs = [NSDictionary dictionaryWithContentsOfFile:plistPath];
         if (managedPrefs[@"VPNResolvers"]) {
           vpnResolvers = managedPrefs[@"VPNResolvers"];

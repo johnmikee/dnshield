@@ -40,6 +40,24 @@ log_warning() {
     echo -e "${YELLOW}[WARNING]${NC} $1"
 }
 
+fetch_notary_log() {
+    local submission_id="$1"
+    local artifact_label="$2"
+    if [ -z "$submission_id" ]; then
+        return
+    fi
+
+    log_info "Fetching notarization log for ${artifact_label:-submission} ($submission_id)..."
+    if xcrun notarytool log "$submission_id" \
+        --apple-id "$APPLE_ID" \
+        --team-id "$TEAM_ID" \
+        --password "$APP_PASSWORD" | tee "${BUILD_DIR}/notary-${submission_id}.log"; then
+        log_info "Notarization log saved to ${BUILD_DIR}/notary-${submission_id}.log"
+    else
+        log_warning "Unable to retrieve notarization log for $submission_id"
+    fi
+}
+
 # Clean previous builds
 clean_build() {
     log_info "Cleaning previous builds..."
@@ -332,8 +350,7 @@ notarize_app() {
         # Try to extract submission ID for log retrieval
         SUBMISSION_ID=$(echo "$APP_NOTARIZATION_OUTPUT" | grep "id:" | head -1 | awk '{print $2}')
         if [ ! -z "$SUBMISSION_ID" ]; then
-            log_info "Check the log with:"
-            log_info "xcrun notarytool log $SUBMISSION_ID --apple-id $APPLE_ID --team-id $TEAM_ID --password $APP_PASSWORD"
+            fetch_notary_log "$SUBMISSION_ID" "app"
         fi
     fi
     
@@ -374,8 +391,7 @@ notarize_app() {
             # Try to extract submission ID for log retrieval
             PKG_SUBMISSION_ID=$(echo "$PKG_NOTARIZATION_OUTPUT" | grep "id:" | head -1 | awk '{print $2}')
             if [ ! -z "$PKG_SUBMISSION_ID" ]; then
-                log_info "Check the package log with:"
-                log_info "xcrun notarytool log $PKG_SUBMISSION_ID --apple-id $APPLE_ID --team-id $TEAM_ID --password $APP_PASSWORD"
+                fetch_notary_log "$PKG_SUBMISSION_ID" "package"
             fi
         fi
     fi

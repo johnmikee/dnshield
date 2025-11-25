@@ -81,6 +81,8 @@ FOUNDATION_EXPORT void DNPreferenceRemoveValue(NSString* key);
 FOUNDATION_EXPORT BOOL DNPreferenceHasUserValue(NSString* key);
 FOUNDATION_EXPORT BOOL DNPreferenceIsManaged(NSString* key);
 FOUNDATION_EXPORT void DNPreferenceMirrorLegacyDomainToAppGroup(void);
+FOUNDATION_EXPORT NSString* DNManagedPreferencesPath(void);
+FOUNDATION_EXPORT NSString* DNManagedPreferencesPathForUser(NSString* _Nullable userName);
 
 FOUNDATION_EXPORT NSUserDefaults* DNSharedDefaults(void);
 FOUNDATION_EXPORT BOOL DNPreferenceDomainSynchronize(NSString* domain);

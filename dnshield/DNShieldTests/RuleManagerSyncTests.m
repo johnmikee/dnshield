@@ -5,6 +5,7 @@
 //  Tests for sync rules functionality with empty database scenarios
 //
 
+#import <Common/Defaults.h>
 #import <OCMock/OCMock.h>
 #import <XCTest/XCTest.h>
 #import "Testing/DNSTestCase.h"
@@ -151,7 +152,7 @@
 
   // Mock preference for primary identifier
   OCMStub([self.mockPreferenceManager preferenceValueForKey:@"ManifestIdentifier"
-                                                   inDomain:@"com.dnshield.app"])
+                                                   inDomain:kDNShieldPreferenceDomain])
       .andReturn(@"custom-manifest");
 
   // Mock serial number
@@ -317,14 +318,14 @@
 - (void)testDetermineManifestIdentifier_PriorityOrder {
   // Test 1: Preference set
   OCMStub([self.mockPreferenceManager preferenceValueForKey:@"ManifestIdentifier"
-                                                   inDomain:@"com.dnshield.app"])
+                                                   inDomain:kDNShieldPreferenceDomain])
       .andReturn(@"custom-id");
   NSString* result = [self.ruleManager determineManifestIdentifier];
   XCTAssertEqualObjects(result, @"custom-id", @"Should use preference when set");
 
   // Test 2: No preference, use serial
   OCMStub([self.mockPreferenceManager preferenceValueForKey:@"ManifestIdentifier"
-                                                   inDomain:@"com.dnshield.app"])
+                                                   inDomain:kDNShieldPreferenceDomain])
       .andReturn(nil);
   OCMStub([DNSManifestResolver getMachineSerialNumber]).andReturn(@"SERIAL456");
   result = [self.ruleManager determineManifestIdentifier];
@@ -332,7 +333,7 @@
 
   // Test 3: No preference, no serial, use default
   OCMStub([self.mockPreferenceManager preferenceValueForKey:@"ManifestIdentifier"
-                                                   inDomain:@"com.dnshield.app"])
+                                                   inDomain:kDNShieldPreferenceDomain])
       .andReturn(nil);
   OCMStub([DNSManifestResolver getMachineSerialNumber]).andReturn(nil);
   result = [self.ruleManager determineManifestIdentifier];

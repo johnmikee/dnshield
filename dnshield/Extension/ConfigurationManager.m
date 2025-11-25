@@ -563,7 +563,7 @@ extern os_log_t logHandle;
     // Check system preferences if NOT managed by MDM
     if (!isManaged) {  // Check if ManagedMode is set in system preferences
       CFPropertyListRef managedModePref =
-          CFPreferencesCopyValue(CFSTR("ManagedMode"), CFSTR("com.dnshield.app"),
+          CFPreferencesCopyValue(CFSTR("ManagedMode"), DNPreferenceDomainCF(),
                                  kCFPreferencesAnyUser, kCFPreferencesCurrentHost);
       BOOL isManagedByPrefs = (managedModePref != NULL);
       if (managedModePref) {
@@ -575,9 +575,9 @@ extern os_log_t logHandle;
         DNSConfiguration* config = [[DNSConfiguration alloc] init];
         config.isManagedByProfile = YES;
 
-        // Load other preferences from com.dnshield.app domain
+        // Load other preferences from managed preference domain
         NSDictionary* prefs = CFBridgingRelease(CFPreferencesCopyMultiple(
-            NULL, CFSTR("com.dnshield.app"), kCFPreferencesAnyUser, kCFPreferencesCurrentHost));
+            NULL, DNPreferenceDomainCF(), kCFPreferencesAnyUser, kCFPreferencesCurrentHost));
         if (prefs) {
           // Apply preferences to config
           if (prefs[@"EnableWebSocketServer"]) {

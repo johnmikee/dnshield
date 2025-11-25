@@ -34,4 +34,16 @@ extern NSString* const kDNShieldWebSocketRetryIntervalKey;
 extern NSTimeInterval const kDNShieldDefaultWebSocketRetryInterval;
 extern NSString* const kDNShieldTeamIdentifier;
 
+static inline CFStringRef DNPreferenceDomainCF(void) {
+  return (__bridge CFStringRef)kDNShieldPreferenceDomain;
+}
+
+static inline CFStringRef DNAppBundleIDCF(void) {
+  return (__bridge CFStringRef)kDefaultAppBundleID;
+}
+
+static inline CFStringRef DNExtensionBundleIDCF(void) {
+  return (__bridge CFStringRef)kDefaultExtensionBundleID;
+}
+
 #endif /* Defaults_h */

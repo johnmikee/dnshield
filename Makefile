@@ -12,6 +12,7 @@ TOP_LEVEL := $(shell git rev-parse --show-toplevel)
 # Components
 dnshield_DIR := dnshield
 CHROME_EXT_DIR := chrome_extension
+IDENTITY ?= default
 
 # Platform detection
 UNAME_S := $(shell uname -s)
@@ -91,13 +92,18 @@ version-major: ## Increment major version (1.1.10 -> 2.0.0)
 .PHONY: all
 all: mac-app chrome-extension tools ## Build all components
 
+.PHONY: identity
+identity: ## Apply signing identity (set IDENTITY=name)
+	@echo "Applying signing identity '$(IDENTITY)'"
+	@./tools/signing/apply_identity.py --identity "$(IDENTITY)"
+
 .PHONY: mac-app
-mac-app: ## Build macOS application
+mac-app: identity ## Build macOS application
 	@echo "Building macOS app v$(VERSION)..."
 	@$(MAKE) -C $(dnshield_DIR) VERSION=$(VERSION)
 
 .PHONY: mac-app-enterprise
-mac-app-enterprise: ## Build macOS app (enterprise version) with watchdog
+mac-app-enterprise: identity ## Build macOS app (enterprise version) with watchdog
 	@echo "Building macOS enterprise app v$(VERSION)..."
 	@# Build watchdog first if Go is available
 	@if command -v go >/dev/null 2>&1; then \

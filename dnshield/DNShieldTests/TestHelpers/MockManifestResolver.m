@@ -7,6 +7,7 @@
 
 #import "MockManifestResolver.h"
 
+#import <Common/Defaults.h>
 #import "DNSManifest.h"  // This contains DNSResolvedManifest definition
 #import "LoggingManager.h"
 
@@ -103,7 +104,7 @@
 + (NSString*)determineClientIdentifierWithPreferenceManager:(PreferenceManager*)preferenceManager {
   // Check preference first
   NSString* identifier = [preferenceManager preferenceValueForKey:@"ManifestIdentifier"
-                                                         inDomain:@"com.dnshield.app"];
+                                                         inDomain:kDNShieldPreferenceDomain];
   if (identifier) {
     return identifier;
   }

@@ -4,10 +4,10 @@
 <dict>
 	<key>com.apple.developer.system-extension.install</key>
 	<true/>
-    <key>com.apple.security.temporary-exception.mach-lookup.global-name</key>
-    <array>
-        <string>com.dnshield.extension.xpc</string>
-    </array>
+	<key>com.apple.security.temporary-exception.mach-lookup.global-name</key>
+	<array>
+		<string>$(DN_EXTENSION_XPC_IDENTIFIER)</string>
+	</array>
 	<key>com.apple.security.temporary-exception.mach-register.global-name</key>
 	<array>
 		<string>com.dnshield.daemon.xpc</string>
