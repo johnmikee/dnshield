@@ -11,7 +11,7 @@
 		9D12573B2E3A599400609A83 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D1257392E3A599400609A83 /* Assets.xcassets */; };
 		9D7B02B22EAFF6A400774A8D /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D7B02B02EAFF68F00774A8D /* OCMock.framework */; };
 		9D7B02B32EAFF6A400774A8D /* OCMock.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9D7B02B02EAFF68F00774A8D /* OCMock.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		9D7C67682E33FABB00DAE03D /* com.dnshield.extension.systemextension in Embed System Extensions */ = {isa = PBXBuildFile; fileRef = 9D7C675A2E33FABB00DAE03D /* com.dnshield.extension.systemextension */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		9D7C67682E33FABB00DAE03D /* SystemExtension in Embed System Extensions */ = {isa = PBXBuildFile; fileRef = 9D7C675A2E33FABB00DAE03D /* SystemExtension */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		9D7C67702E34002600DAE03D /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D7C676F2E34002600DAE03D /* NetworkExtension.framework */; };
 		9D87586E2E81D51C0046AF31 /* entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9D87586B2E81D51C0046AF31 /* entitlements.plist */; };
 		9D8758712E81D51C0046AF31 /* entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9D87586B2E81D51C0046AF31 /* entitlements.plist */; };
@@ -41,7 +41,7 @@
 			dstPath = "$(SYSTEM_EXTENSIONS_FOLDER_PATH)";
 			dstSubfolderSpec = 16;
 			files = (
-				9D7C67682E33FABB00DAE03D /* com.dnshield.extension.systemextension in Embed System Extensions */,
+				9D7C67682E33FABB00DAE03D /* SystemExtension in Embed System Extensions */,
 			);
 			name = "Embed System Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -64,10 +64,11 @@
 		9D5B61472E85B5B9001A4B2A /* DNShieldTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DNShieldTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D7B02B02EAFF68F00774A8D /* OCMock.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OCMock.framework; sourceTree = "<group>"; };
 		9D7C67362E33F9A700DAE03D /* DNShield.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DNShield.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		9D7C675A2E33FABB00DAE03D /* com.dnshield.extension.systemextension */ = {isa = PBXFileReference; explicitFileType = "wrapper.system-extension"; includeInIndex = 0; path = com.dnshield.extension.systemextension; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D7C675A2E33FABB00DAE03D /* SystemExtension */ = {isa = PBXFileReference; explicitFileType = "wrapper.system-extension"; includeInIndex = 0; path = "$(DN_EXTENSION_SYSTEM_EXTENSION_ID)"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D7C676F2E34002600DAE03D /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		9D87586B2E81D51C0046AF31 /* entitlements.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = entitlements.plist; sourceTree = "<group>"; };
 		9D87586C2E81D51C0046AF31 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		9DF2D1F62F0CC2FF00C1A4F1 /* Identity.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Identity.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -173,6 +174,7 @@
 		9D7C672D2E33F9A700DAE03D = {
 			isa = PBXGroup;
 			children = (
+				9DF2D1F72F0CC2FF00C1A4F1 /* Configurations */,
 				9D88DC942ED63B37002BBE68 /* XPC */,
 				9D88D9812ED5F967002BBE68 /* CTL */,
 				9D87586D2E81D51C0046AF31 /* Daemon */,
@@ -190,7 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				9D7C67362E33F9A700DAE03D /* DNShield.app */,
-				9D7C675A2E33FABB00DAE03D /* com.dnshield.extension.systemextension */,
+				9D7C675A2E33FABB00DAE03D /* SystemExtension */,
 				9D5B61472E85B5B9001A4B2A /* DNShieldTests.xctest */,
 			);
 			name = Products;
@@ -212,6 +214,14 @@
 				9D87586C2E81D51C0046AF31 /* main.m */,
 			);
 			path = Daemon;
+			sourceTree = "<group>";
+		};
+		9DF2D1F72F0CC2FF00C1A4F1 /* Configurations */ = {
+			isa = PBXGroup;
+			children = (
+				9DF2D1F62F0CC2FF00C1A4F1 /* Identity.xcconfig */,
+			);
+			path = Configurations;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -288,7 +298,7 @@
 			packageProductDependencies = (
 			);
 			productName = Extension;
-			productReference = 9D7C675A2E33FABB00DAE03D /* com.dnshield.extension.systemextension */;
+			productReference = 9D7C675A2E33FABB00DAE03D /* SystemExtension */;
 			productType = "com.apple.product-type.system-extension";
 		};
 /* End PBXNativeTarget section */
@@ -613,17 +623,18 @@
 		};
 		9D7C67472E33F9A900DAE03D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9DF2D1F62F0CC2FF00C1A4F1 /* Identity.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = App/DNShield.entitlements;
-				CODE_SIGN_IDENTITY = "Developer ID Application: John Peterson (C6F9Y6M584)";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application: John Peterson (C6F9Y6M584)";
+				CODE_SIGN_IDENTITY = "$(DN_APP_CODE_SIGN_IDENTITY)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "$(DN_APP_CODE_SIGN_IDENTITY)";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 4;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=macosx*]" = C6F9Y6M584;
+				DEVELOPMENT_TEAM = "$(DN_TEAM_ID)";
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = P4LZFPM2NH;
 				ENABLE_HARDENED_RUNTIME = NO;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = App/Info.plist;
@@ -637,10 +648,10 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.dnshield.app;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(DN_APP_BUNDLE_ID)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "DNShield Application - Provisioning Profile";
+				PROVISIONING_PROFILE_SPECIFIER = "$(DN_APP_PROVISIONING_PROFILE)";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "DNShield - Application Profile";
 				REGISTER_APP_GROUPS = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 			};
@@ -648,17 +659,18 @@
 		};
 		9D7C67482E33F9A900DAE03D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9DF2D1F62F0CC2FF00C1A4F1 /* Identity.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = App/DNShield.entitlements;
-				CODE_SIGN_IDENTITY = "Developer ID Application: John Peterson (C6F9Y6M584)";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application: John Peterson (C6F9Y6M584)";
+				CODE_SIGN_IDENTITY = "$(DN_APP_CODE_SIGN_IDENTITY)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "$(DN_APP_CODE_SIGN_IDENTITY)";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 4;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=macosx*]" = C6F9Y6M584;
+				DEVELOPMENT_TEAM = "$(DN_TEAM_ID)";
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = P4LZFPM2NH;
 				ENABLE_HARDENED_RUNTIME = NO;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = App/Info.plist;
@@ -672,10 +684,10 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.dnshield.app;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(DN_APP_BUNDLE_ID)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "DNShield Application - Provisioning Profile";
+				PROVISIONING_PROFILE_SPECIFIER = "$(DN_APP_PROVISIONING_PROFILE)";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "DNShield - Application Profile";
 				REGISTER_APP_GROUPS = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 			};
@@ -683,16 +695,17 @@
 		};
 		9D7C676B2E33FABB00DAE03D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9DF2D1F62F0CC2FF00C1A4F1 /* Identity.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Extension/Extension.entitlements;
-				CODE_SIGN_IDENTITY = "Developer ID Application: John Peterson (C6F9Y6M584)";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application: John Peterson (C6F9Y6M584)";
+				CODE_SIGN_IDENTITY = "$(DN_EXTENSION_CODE_SIGN_IDENTITY)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "$(DN_EXTENSION_CODE_SIGN_IDENTITY)";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 4;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=macosx*]" = C6F9Y6M584;
+				DEVELOPMENT_TEAM = "$(DN_TEAM_ID)";
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = P4LZFPM2NH;
 				ENABLE_HARDENED_RUNTIME = NO;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Extension/Info.plist;
@@ -705,10 +718,10 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				MARKETING_VERSION = 1.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.dnshield.extension;
-				PRODUCT_NAME = com.dnshield.extension;
-				PROVISIONING_PROFILE_SPECIFIER = "DNShile Extension Profile";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "DNShield Extension Provisioning Profile";
+				PRODUCT_BUNDLE_IDENTIFIER = "$(DN_EXTENSION_BUNDLE_ID)";
+				PRODUCT_NAME = "$(DN_EXTENSION_PRODUCT_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "$(DN_EXTENSION_PROVISIONING_PROFILE)";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "DNShield - Extension Profile";
 				REGISTER_APP_GROUPS = YES;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -719,16 +732,17 @@
 		};
 		9D7C676C2E33FABB00DAE03D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9DF2D1F62F0CC2FF00C1A4F1 /* Identity.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Extension/Extension.entitlements;
-				CODE_SIGN_IDENTITY = "Developer ID Application: John Peterson (C6F9Y6M584)";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application: John Peterson (C6F9Y6M584)";
+				CODE_SIGN_IDENTITY = "$(DN_EXTENSION_CODE_SIGN_IDENTITY)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "$(DN_EXTENSION_CODE_SIGN_IDENTITY)";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 4;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=macosx*]" = C6F9Y6M584;
+				DEVELOPMENT_TEAM = "$(DN_TEAM_ID)";
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = P4LZFPM2NH;
 				ENABLE_HARDENED_RUNTIME = NO;
 				GENERATE_INFOPLIST_FILE = NO;
 				"HEADER_SEARCH_PATHS[arch=*]" = "$(SRCROOT)/**";
@@ -742,10 +756,10 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				MARKETING_VERSION = 1.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.dnshield.extension;
-				PRODUCT_NAME = com.dnshield.extension;
-				PROVISIONING_PROFILE_SPECIFIER = "DNShile Extension Profile";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "DNShield Extension Provisioning Profile";
+				PRODUCT_BUNDLE_IDENTIFIER = "$(DN_EXTENSION_BUNDLE_ID)";
+				PRODUCT_NAME = "$(DN_EXTENSION_PRODUCT_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "$(DN_EXTENSION_PROVISIONING_PROFILE)";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "DNShield - Extension Profile";
 				REGISTER_APP_GROUPS = YES;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;

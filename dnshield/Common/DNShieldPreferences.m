@@ -51,6 +51,19 @@ NSString* const kDNShieldWebSocketAuthToken = @"WebSocketAuthToken";
 NSString* const kDNShieldWebSocketRetryBackoff = @"WebSocketRetryBackoff";
 NSString* const kDNShieldChromeExtensionIDs = @"ChromeExtensionIDs";
 
+NSString* DNManagedPreferencesPath(void) {
+  return [NSString
+      stringWithFormat:@"/Library/Managed Preferences/%@.plist", kDNShieldPreferenceDomain];
+}
+
+NSString* DNManagedPreferencesPathForUser(NSString* _Nullable userName) {
+  if (userName.length == 0) {
+    return DNManagedPreferencesPath();
+  }
+  return [NSString stringWithFormat:@"/Library/Managed Preferences/%@/%@.plist", userName,
+                                    kDNShieldPreferenceDomain];
+}
+
 static NSString* DNConsoleUser(void) {
   static NSString* cachedConsoleUser = nil;
   static NSDate* lastLookup = nil;
@@ -122,8 +135,8 @@ static id DNManagedPreferenceValueForKey(NSString* key) {
     }
   }
 
-  NSString* globalManagedPath = @"/Library/Managed Preferences/com.dnshield.app.plist";
-  NSDictionary* globalManaged = [NSDictionary dictionaryWithContentsOfFile:globalManagedPath];
+  NSDictionary* globalManaged =
+      [NSDictionary dictionaryWithContentsOfFile:DNManagedPreferencesPath()];
   id managedValue = globalManaged[key];
   if (managedValue) {
     return managedValue;
@@ -131,8 +144,7 @@ static id DNManagedPreferenceValueForKey(NSString* key) {
 
   NSString* consoleUser = DNConsoleUser();
   if (consoleUser.length > 0) {
-    NSString* userPath = [NSString
-        stringWithFormat:@"/Library/Managed Preferences/%@/com.dnshield.app.plist", consoleUser];
+    NSString* userPath = DNManagedPreferencesPathForUser(consoleUser);
     NSDictionary* userManaged = [NSDictionary dictionaryWithContentsOfFile:userPath];
     managedValue = userManaged[key];
     if (managedValue) {
@@ -142,8 +154,7 @@ static id DNManagedPreferenceValueForKey(NSString* key) {
 
   NSString* processUser = NSUserName();
   if (processUser.length > 0) {
-    NSString* userPath = [NSString
-        stringWithFormat:@"/Library/Managed Preferences/%@/com.dnshield.app.plist", processUser];
+    NSString* userPath = DNManagedPreferencesPathForUser(processUser);
     NSDictionary* userManaged = [NSDictionary dictionaryWithContentsOfFile:userPath];
     managedValue = userManaged[key];
     if (managedValue) {

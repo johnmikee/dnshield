@@ -57,13 +57,12 @@
   // Use modern code signing requirement validation
   @try {
     // Build a requirement that accepts our current app plus trusted helpers
-    NSString* requirement =
-        [NSString stringWithFormat:
-                      @"(identifier \"%@\" or identifier \"com.dnshield.app\" or "
-                      @"identifier \"dnshield-ctl\" or identifier \"dnshield-xpc\" or identifier "
-                      @"\"dnshield-daemon\") and anchor apple generic and certificate "
-                      @"leaf[subject.OU] = \"%@\"",
-                      kDefaultAppBundleID, kDNShieldTeamIdentifier];
+    NSString* requirement = [NSString
+        stringWithFormat:@"(identifier \"%@\" or identifier \"%@\" or identifier "
+                         @"\"dnshield-ctl\" or identifier \"dnshield-xpc\" or identifier "
+                         @"\"dnshield-daemon\") and anchor apple generic and certificate "
+                         @"leaf[subject.OU] = \"%@\"",
+                         kDefaultAppBundleID, kDNShieldPreferenceDomain, kDNShieldTeamIdentifier];
 
     // Set the code signing requirement on the connection
     // This is the modern, recommended approach for macOS 13+

@@ -567,7 +567,7 @@ static id DNPreferenceCopyValue(NSString* key) {
     return nil;
 
   CFStringRef cfKey = (__bridge CFStringRef)key;
-  CFStringRef appID = CFSTR("com.dnshield.app");
+  CFStringRef appID = DNPreferenceDomainCF();
 
   CFPreferencesAppSynchronize(appID);
 

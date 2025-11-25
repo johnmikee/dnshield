@@ -24,7 +24,7 @@
 
 // Version info
 #define DAEMON_VERSION "1.3"
-#define DAEMON_BUILD "142"
+#define DAEMON_BUILD "147"
 
 #define kDaemonBundleIdentifier kDNShieldDaemonBundleID
 
@@ -97,7 +97,7 @@ static id DNPreferenceCopyValue(NSString* key) {
     return nil;
 
   CFStringRef cfKey = (__bridge CFStringRef)key;
-  CFStringRef appID = CFSTR("com.dnshield.app");
+  CFStringRef appID = DNPreferenceDomainCF();
 
   CFPreferencesAppSynchronize(appID);
 
@@ -292,11 +292,11 @@ static BOOL DNIsLikelyLocalDNSProxyConfiguration(NEDNSProxyProviderProtocol* pro
 
 - (BOOL)isManagedByProfile {
   BOOL hasManagedDNSProxy = DNManagedPreferencesExist(CFSTR("com.apple.dnsProxy.managed"));
-  BOOL hasManagedDNShield = DNManagedPreferencesExist(CFSTR("com.dnshield.app"));
+  BOOL hasManagedDNShield = DNManagedPreferencesExist(DNPreferenceDomainCF());
 
   Boolean keyExistsAndHasValue = false;
   Boolean managedModePref = CFPreferencesGetAppBooleanValue(
-      CFSTR("ManagedMode"), CFSTR("com.dnshield.app"), &keyExistsAndHasValue);
+      CFSTR("ManagedMode"), DNPreferenceDomainCF(), &keyExistsAndHasValue);
 
   BOOL isManaged =
       hasManagedDNSProxy || hasManagedDNShield || (keyExistsAndHasValue && managedModePref);
@@ -1084,9 +1084,9 @@ static BOOL DNIsLikelyLocalDNSProxyConfiguration(NEDNSProxyProviderProtocol* pro
     // Validate the connection is from our app or extension with correct team ID
     // Allow if we have correct team ID and signing ID
     if ([teamIdStr isEqualToString:expectedTeamId] &&
-        ([signingIdStr isEqualToString:@"com.dnshield.app"] ||
-         [signingIdStr isEqualToString:@"com.dnshield.extension"] ||
-         [signingIdStr isEqualToString:@"com.dnshield.daemon"] ||
+        ([signingIdStr isEqualToString:kDNShieldPreferenceDomain] ||
+         [signingIdStr isEqualToString:kDefaultExtensionBundleID] ||
+         [signingIdStr isEqualToString:kDNShieldDaemonBundleID] ||
          [signingIdStr isEqualToString:@"dnshield-ctl"] ||
          [signingIdStr isEqualToString:@"dnshield-xpc"])) {
       isValid = YES;
@@ -1099,8 +1099,8 @@ static BOOL DNIsLikelyLocalDNSProxyConfiguration(NEDNSProxyProviderProtocol* pro
     } else if (!teamIdStr && signingIdStr &&
                ([signingIdStr isEqualToString:@"dnshield-ctl"] ||
                 [signingIdStr isEqualToString:@"dnshield-xpc"] ||
-                [signingIdStr isEqualToString:@"com.dnshield.app"] ||
-                [signingIdStr isEqualToString:@"com.dnshield.daemon"])) {
+                [signingIdStr isEqualToString:kDNShieldPreferenceDomain] ||
+                [signingIdStr isEqualToString:kDNShieldDaemonBundleID])) {
       isValid = YES;
       DNSLogInfo(LogCategoryGeneral,
                  "XPC authentication successful for known binary (no team ID): %{public}@",

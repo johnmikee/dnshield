@@ -5,6 +5,7 @@
 //
 
 #import "LogGatheringWindowController.h"
+#import <Common/Defaults.h>
 #import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 #import <os/log.h>
 
@@ -198,8 +199,11 @@
 
   // Add predicate for DNShield processes
   [arguments addObject:@"--predicate"];
-  [arguments addObject:@"process == \"DNShield\" OR subsystem == \"com.dnshield\" OR subsystem == "
-                       @"\"com.dnshield.app\" OR process == \"com.dnshield.extension\""];
+  NSString* predicate = [NSString
+      stringWithFormat:@"process == \"DNShield\" OR subsystem == \"com.dnshield\" OR subsystem == "
+                       @"\"%@\" OR process == \"%@\"",
+                       kDNShieldPreferenceDomain, kDefaultExtensionBundleID];
+  [arguments addObject:predicate];
 
   // Add log level
   NSInteger logLevelRow = [self.logLevelMatrix selectedRow];

@@ -76,12 +76,11 @@ static BOOL DNIsLikelyLocalDNSProxyConfiguration(NEDNSProxyProviderProtocol* pro
   NSString* managedPrefPath = @"/Library/Managed Preferences/com.apple.dnsProxy.managed.plist";
   BOOL hasManagedDNSProxy = [[NSFileManager defaultManager] fileExistsAtPath:managedPrefPath];
 
-  NSString* dnshieldManagedPath = @"/Library/Managed Preferences/com.dnshield.app.plist";
+  NSString* dnshieldManagedPath = DNManagedPreferencesPath();
   BOOL hasManagedDNShield = [[NSFileManager defaultManager] fileExistsAtPath:dnshieldManagedPath];
 
   NSString* userName = NSUserName();
-  NSString* userManagedPath = [NSString
-      stringWithFormat:@"/Library/Managed Preferences/%@/com.dnshield.app.plist", userName];
+  NSString* userManagedPath = DNManagedPreferencesPathForUser(userName);
   BOOL hasUserManagedDNShield = [[NSFileManager defaultManager] fileExistsAtPath:userManagedPath];
 
   NSUserDefaults* standardDefaults = [NSUserDefaults standardUserDefaults];
