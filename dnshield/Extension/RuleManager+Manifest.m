@@ -95,6 +95,13 @@ static void* ManifestUpdateTimerKey = &ManifestUpdateTimerKey;
                                       @"reason" : @"manifest_not_found",
                                       @"attempted_identifier" : actualIdentifier
                                     }];
+
+      // The initial load commonly fails at startup because the DNS proxy is not
+      // yet forwarding queries, so resolving the rules host times out. Nothing
+      // else will retry the *initial* load (reloadManifestIfNeeded bails while
+      // currentManifestIdentifier is nil), so we'd be stuck at zero rules until
+      // a restart. Retry with backoff until a manifest loads.
+      [self scheduleManifestBootstrapRetry:actualIdentifier attempt:1];
     } else {
       [[LoggingManager sharedManager] logEvent:@"ManifestLoadedSuccessfully"
                                       category:LogCategoryConfiguration
@@ -108,6 +115,56 @@ static void* ManifestUpdateTimerKey = &ManifestUpdateTimerKey;
                                          "using unified timer in DNSProxyProvider");
   }
   return self;
+}
+
+#pragma mark - Manifest Bootstrap Retry
+
+// Retry the initial manifest load until it succeeds. Self-cancels as soon as a
+// manifest is loaded (by this path or any other). Backoff: 5s, 10s, 20s, 40s,
+// 80s, 160s, then capped at 300s, up to a bounded number of attempts.
+- (void)scheduleManifestBootstrapRetry:(NSString*)identifier attempt:(NSUInteger)attempt {
+  static const NSUInteger kMaxAttempts = 12;
+
+  if (self.currentManifestIdentifier) {
+    return;  // already bootstrapped
+  }
+  if (attempt > kMaxAttempts) {
+    [[LoggingManager sharedManager] logEvent:@"ManifestBootstrapGaveUp"
+                                    category:LogCategoryConfiguration
+                                       level:LogLevelDefault
+                                  attributes:@{@"attempts" : @(kMaxAttempts)}];
+    return;
+  }
+
+  NSTimeInterval delay = MIN(300.0, 5.0 * (NSTimeInterval)(1u << MIN(attempt - 1, 6u)));
+
+  __weak typeof(self) weakSelf = self;
+  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)),
+                 dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                   __strong typeof(self) strongSelf = weakSelf;
+                   if (!strongSelf || strongSelf.currentManifestIdentifier) {
+                     return;
+                   }
+
+                   NSString* retryIdentifier =
+                       identifier ?: [strongSelf determineManifestIdentifier];
+                   [[LoggingManager sharedManager]
+                         logEvent:@"RetryingManifestBootstrap"
+                         category:LogCategoryConfiguration
+                            level:LogLevelInfo
+                       attributes:@{
+                         @"identifier" : retryIdentifier ?: @"nil",
+                         @"attempt" : @(attempt)
+                       }];
+
+                   [strongSelf loadManifestAsync:retryIdentifier
+                                      completion:^(BOOL success, NSError* _Nullable error) {
+                                        if (!success) {
+                                          [strongSelf scheduleManifestBootstrapRetry:retryIdentifier
+                                                                             attempt:attempt + 1];
+                                        }
+                                      }];
+                 });
 }
 
 #pragma mark - Manifest Loading

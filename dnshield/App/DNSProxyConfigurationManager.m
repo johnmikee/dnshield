@@ -18,11 +18,31 @@
 extern os_log_t logHandle;
 
 static BOOL DNIsLikelyLocalDNSProxyConfiguration(NEDNSProxyProviderProtocol* protocol) {
+  // Authoritative signal: when the DNS proxy is installed by an MDM configuration
+  // profile (com.apple.dnsProxy.managed), the active NEDNSProxy configuration is
+  // owned by that profile and can never be removed by the app
+  // (NEDNSProxyErrorConfigurationCannotBeRemoved / error 4). The profile's
+  // ProviderConfiguration does not carry any of the marker keys checked below
+  // (it only holds ManifestURL, ManagedMode, AdditionalHttpHeaders, etc.), so
+  // without this guard the MDM payload is misclassified as local and the app
+  // loops forever trying — and failing — to remove it.
+  if ([[NSFileManager defaultManager]
+          fileExistsAtPath:@"/Library/Managed Preferences/com.apple.dnsProxy.managed.plist"]) {
+    return NO;
+  }
+
   if (!protocol)
     return YES;
   NSDictionary* config = protocol.providerConfiguration;
   if (!config)
     return YES;
+
+  // MDM-provided ProviderConfiguration markers. If the active config carries the
+  // keys the managed profile pushes, it is owned by MDM, not locally created.
+  if (config[@"ManagedMode"] != nil || config[@"ManifestURL"] != nil ||
+      config[@"ManifestUpdateInterval"] != nil || config[@"AdditionalHttpHeaders"] != nil) {
+    return NO;
+  }
 
   if (config[@"payloadInfo"] != nil) {
     NSDictionary* payloadInfo = config[@"payloadInfo"];

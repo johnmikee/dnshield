@@ -211,7 +211,12 @@ dns_sign_helpers_in_app() {
     for helper in "${helpers[@]}"; do
       if [ -f "${app_macos_dir}/${helper}" ]; then
         log_info "Signing ${helper} with: $DEVELOPER_ID"
-        # For daemon, preserve entitlements
+        # The daemon requests system-extension activation, so it must carry
+        # com.apple.developer.system-extension.install. That entitlement is
+        # restricted, but a helper Mach-O nested inside the app bundle is
+        # authorized against the *enclosing app bundle's* embedded provisioning
+        # profile -- it doesn't need its own. Sign the daemon WITH its
+        # entitlements; sign the other helpers bare.
         if [ "$helper" = "dnshield-daemon" ]; then
           if [ -f "${PROJECT_DIR}/Daemon/entitlements.plist" ]; then
             log_info "Applying daemon entitlements from: ${PROJECT_DIR}/Daemon/entitlements.plist"

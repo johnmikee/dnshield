@@ -24,7 +24,7 @@
 
 // Version info
 #define DAEMON_VERSION "1.3"
-#define DAEMON_BUILD "147"
+#define DAEMON_BUILD "149"
 
 #define kDaemonBundleIdentifier kDNShieldDaemonBundleID
 

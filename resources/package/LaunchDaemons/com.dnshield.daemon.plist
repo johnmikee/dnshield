@@ -4,8 +4,8 @@
 <dict>
 	<key>AssociatedBundleIdentifiers</key>
 	<array>
-		<string>com.gemini.dnshield.app</string>
-		<string>com.gemini.dnshield.extension</string>
+		<string>com.dnshield.app</string>
+		<string>com.dnshield.extension</string>
 	</array>
 	<key>GroupName</key>
 	<string>wheel</string>

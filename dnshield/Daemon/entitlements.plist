@@ -26,7 +26,7 @@
 	<true/>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>group.C6F9Y6M584.com.gemini.dnshield</string>
+		<string>group.C6F9Y6M584.com.dnshield.shared</string>
 	</array>
     <!-- Network Extension Management -->
     <key>com.apple.developer.networking.networkextension</key>

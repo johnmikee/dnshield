@@ -228,13 +228,29 @@
                "Current manifest configuration - URL: %{public}@, Headers: %{public}@",
                manifestURL ?: @"none", httpHeaders ?: @"(nil)");
 
-    if (self.ruleManager &&
-        [self.ruleManager respondsToSelector:@selector(reloadManifestIfNeeded)]) {
-      DNSLogInfo(LogCategoryRuleFetching, "Timer: Triggering manifest/rule update check (async)");
+    if (self.ruleManager) {
       // CRITICAL: Don't block the main thread with manifest resolution
       // The semaphore wait in HTTP fetcher can block for 10+ seconds
       dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [(id)self.ruleManager reloadManifestIfNeeded];
+        if (manifestChanged &&
+            [self.ruleManager respondsToSelector:@selector(loadManifestAsync:completion:)]) {
+          // No manifest loaded yet (initial load failed) or the identifier
+          // changed: do a full load. reloadManifestIfNeeded bails while
+          // currentManifestIdentifier is nil, which would leave us at zero rules.
+          DNSLogInfo(LogCategoryRuleFetching, "Timer: (re)loading manifest %{public}@ (async)",
+                     newIdentifier);
+          [(id)self.ruleManager loadManifestAsync:newIdentifier
+                                       completion:^(BOOL success, NSError* _Nullable error) {
+                                         if (!success) {
+                                           DNSLogError(LogCategoryRuleFetching,
+                                                       "Timer manifest load failed: %{public}@",
+                                                       error.localizedDescription);
+                                         }
+                                       }];
+        } else if ([self.ruleManager respondsToSelector:@selector(reloadManifestIfNeeded)]) {
+          DNSLogInfo(LogCategoryRuleFetching, "Timer: Triggering manifest/rule update check (async)");
+          [(id)self.ruleManager reloadManifestIfNeeded];
+        }
       });
     }
   }

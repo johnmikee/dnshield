@@ -11,7 +11,7 @@
 		9D12573B2E3A599400609A83 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D1257392E3A599400609A83 /* Assets.xcassets */; };
 		9D7B02B22EAFF6A400774A8D /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D7B02B02EAFF68F00774A8D /* OCMock.framework */; };
 		9D7B02B32EAFF6A400774A8D /* OCMock.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9D7B02B02EAFF68F00774A8D /* OCMock.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		9D7C67682E33FABB00DAE03D /* SystemExtension in Embed System Extensions */ = {isa = PBXBuildFile; fileRef = 9D7C675A2E33FABB00DAE03D /* SystemExtension */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		9D7C67682E33FABB00DAE03D /* .systemextension in Embed System Extensions */ = {isa = PBXBuildFile; fileRef = 9D7C675A2E33FABB00DAE03D /* .systemextension */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		9D7C67702E34002600DAE03D /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D7C676F2E34002600DAE03D /* NetworkExtension.framework */; };
 		9D87586E2E81D51C0046AF31 /* entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9D87586B2E81D51C0046AF31 /* entitlements.plist */; };
 		9D8758712E81D51C0046AF31 /* entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9D87586B2E81D51C0046AF31 /* entitlements.plist */; };
@@ -41,7 +41,7 @@
 			dstPath = "$(SYSTEM_EXTENSIONS_FOLDER_PATH)";
 			dstSubfolderSpec = 16;
 			files = (
-				9D7C67682E33FABB00DAE03D /* SystemExtension in Embed System Extensions */,
+				9D7C67682E33FABB00DAE03D /* .systemextension in Embed System Extensions */,
 			);
 			name = "Embed System Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -64,43 +64,16 @@
 		9D5B61472E85B5B9001A4B2A /* DNShieldTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DNShieldTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D7B02B02EAFF68F00774A8D /* OCMock.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OCMock.framework; sourceTree = "<group>"; };
 		9D7C67362E33F9A700DAE03D /* DNShield.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DNShield.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		9D7C675A2E33FABB00DAE03D /* SystemExtension */ = {isa = PBXFileReference; explicitFileType = "wrapper.system-extension"; includeInIndex = 0; path = "$(DN_EXTENSION_SYSTEM_EXTENSION_ID)"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D7C675A2E33FABB00DAE03D /* .systemextension */ = {isa = PBXFileReference; explicitFileType = "wrapper.system-extension"; includeInIndex = 0; path = .systemextension; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D7C676F2E34002600DAE03D /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		9D87586B2E81D51C0046AF31 /* entitlements.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = entitlements.plist; sourceTree = "<group>"; };
 		9D87586C2E81D51C0046AF31 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		9DF2D1F62F0CC2FF00C1A4F1 /* Identity.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Identity.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		9D7C67692E33FABB00DAE03D /* Exceptions for "Extension" folder in "Extension" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = 9D7C67592E33FABB00DAE03D /* Extension */;
-		};
-		AABBCCDD0011223344556677 /* Exceptions for "Extension" folder in "DNShieldTests" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				main.m,
-			);
-			target = 9D5B61462E85B5B9001A4B2A /* DNShieldTests */;
-		};
-		AABBCCDD0011223344556688 /* Exceptions for "DNShieldTests" folder in "DNShieldTests" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = 9D5B61462E85B5B9001A4B2A /* DNShieldTests */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		9D5B61482E85B5B9001A4B2A /* DNShieldTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				AABBCCDD0011223344556688 /* Exceptions for "DNShieldTests" folder in "DNShieldTests" target */,
-			);
 			path = DNShieldTests;
 			sourceTree = "<group>";
 		};
@@ -111,10 +84,6 @@
 		};
 		9D7C675E2E33FABB00DAE03D /* Extension */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				9D7C67692E33FABB00DAE03D /* Exceptions for "Extension" folder in "Extension" target */,
-				AABBCCDD0011223344556677 /* Exceptions for "Extension" folder in "DNShieldTests" target */,
-			);
 			path = Extension;
 			sourceTree = SOURCE_ROOT;
 		};
@@ -192,7 +161,7 @@
 			isa = PBXGroup;
 			children = (
 				9D7C67362E33F9A700DAE03D /* DNShield.app */,
-				9D7C675A2E33FABB00DAE03D /* SystemExtension */,
+				9D7C675A2E33FABB00DAE03D /* .systemextension */,
 				9D5B61472E85B5B9001A4B2A /* DNShieldTests.xctest */,
 			);
 			name = Products;
@@ -298,7 +267,7 @@
 			packageProductDependencies = (
 			);
 			productName = Extension;
-			productReference = 9D7C675A2E33FABB00DAE03D /* SystemExtension */;
+			productReference = 9D7C675A2E33FABB00DAE03D /* .systemextension */;
 			productType = "com.apple.product-type.system-extension";
 		};
 /* End PBXNativeTarget section */
@@ -634,7 +603,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = "$(DN_TEAM_ID)";
-				"DEVELOPMENT_TEAM[sdk=macosx*]" = P4LZFPM2NH;
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = C6F9Y6M584;
 				ENABLE_HARDENED_RUNTIME = NO;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = App/Info.plist;
@@ -651,7 +620,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "$(DN_APP_BUNDLE_ID)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "$(DN_APP_PROVISIONING_PROFILE)";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "DNShield - Application Profile";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "DNShield Application - Provisioning Profile";
 				REGISTER_APP_GROUPS = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 			};
@@ -670,7 +639,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = "$(DN_TEAM_ID)";
-				"DEVELOPMENT_TEAM[sdk=macosx*]" = P4LZFPM2NH;
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = C6F9Y6M584;
 				ENABLE_HARDENED_RUNTIME = NO;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = App/Info.plist;
@@ -687,7 +656,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "$(DN_APP_BUNDLE_ID)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "$(DN_APP_PROVISIONING_PROFILE)";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "DNShield - Application Profile";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "DNShield Application - Provisioning Profile";
 				REGISTER_APP_GROUPS = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 			};
@@ -705,7 +674,7 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = "$(DN_TEAM_ID)";
-				"DEVELOPMENT_TEAM[sdk=macosx*]" = P4LZFPM2NH;
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = C6F9Y6M584;
 				ENABLE_HARDENED_RUNTIME = NO;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Extension/Info.plist;
@@ -721,7 +690,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "$(DN_EXTENSION_BUNDLE_ID)";
 				PRODUCT_NAME = "$(DN_EXTENSION_PRODUCT_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "$(DN_EXTENSION_PROVISIONING_PROFILE)";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "DNShield - Extension Profile";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "DNShield Extension Provisioning Profile";
 				REGISTER_APP_GROUPS = YES;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -742,7 +711,7 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = "$(DN_TEAM_ID)";
-				"DEVELOPMENT_TEAM[sdk=macosx*]" = P4LZFPM2NH;
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = C6F9Y6M584;
 				ENABLE_HARDENED_RUNTIME = NO;
 				GENERATE_INFOPLIST_FILE = NO;
 				"HEADER_SEARCH_PATHS[arch=*]" = "$(SRCROOT)/**";
@@ -759,7 +728,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "$(DN_EXTENSION_BUNDLE_ID)";
 				PRODUCT_NAME = "$(DN_EXTENSION_PRODUCT_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "$(DN_EXTENSION_PROVISIONING_PROFILE)";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "DNShield - Extension Profile";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "DNShield Extension Provisioning Profile";
 				REGISTER_APP_GROUPS = YES;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;

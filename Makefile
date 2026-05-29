@@ -12,7 +12,10 @@ TOP_LEVEL := $(shell git rev-parse --show-toplevel)
 # Components
 dnshield_DIR := dnshield
 CHROME_EXT_DIR := chrome_extension
-IDENTITY ?= default
+# Default to the currently-active identity (config/identities/.active); fall
+# back to "default" only if none has been applied. Prevents an unqualified
+# `make` from silently re-applying the gemini default over a local identity.
+IDENTITY ?= $(shell cat config/identities/.active 2>/dev/null || echo default)
 
 # Platform detection
 UNAME_S := $(shell uname -s)
