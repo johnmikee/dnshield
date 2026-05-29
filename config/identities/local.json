@@ -1,0 +1,22 @@
+{
+  "identity": "local",
+  "display_name": "DNShield",
+  "bundle_prefix": "com.dnshield",
+  "domain_name": "dnshield",
+  "app_bundle_id": "com.dnshield.app",
+  "extension_bundle_id": "com.dnshield.extension",
+  "extension_product_name": "com.dnshield.extension",
+  "extension_system_extension_id": "com.dnshield.extension.systemextension",
+  "extension_xpc_identifier": "com.dnshield.extension.xpc",
+  "daemon_bundle_id": "com.dnshield.daemon",
+  "preference_domain": "com.dnshield.app",
+  "app_group": "group.C6F9Y6M584.com.dnshield.shared",
+  "mach_service_name": "com.dnshield.daemon.xpc",
+  "team_id": "C6F9Y6M584",
+  "developer_id_application": "Developer ID Application: John Peterson (C6F9Y6M584)",
+  "developer_id_installer": "Developer ID Installer: John Peterson (C6F9Y6M584)",
+  "provisioning_profiles": {
+    "app": "DNShield Application - Provisioning Profile",
+    "extension": "DNShield Extension Provisioning Profile"
+  }
+}

@@ -5,6 +5,7 @@
 
 #import "DNRuleDataProvider.h"
 
+#import <Common/DNShieldPreferences.h>
 #import "DNSProxyConfigurationManager.h"
 #import "LoggingManager.h"
 #import "XPCClient.h"
@@ -242,7 +243,7 @@ static NSString* const DNRuleDataProviderErrorDomain = @"com.dnshield.ruleData";
     }
   }
 
-  NSString* managedPrefsPath = @"/Library/Managed Preferences/com.dnshield.app.plist";
+  NSString* managedPrefsPath = DNManagedPreferencesPath();
   if (manifestURL && [[NSFileManager defaultManager] fileExistsAtPath:managedPrefsPath]) {
     NSDictionary* mdmPrefs = [NSDictionary dictionaryWithContentsOfFile:managedPrefsPath];
     *manifestURL = mdmPrefs[@"ManifestURL"];

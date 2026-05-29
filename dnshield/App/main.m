@@ -5,6 +5,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <Common/Defaults.h>
 #import <SystemExtensions/SystemExtensions.h>
 #import <os/log.h>
 #import "LoggingManager.h"
@@ -65,7 +66,7 @@ int main(int argc, const char* argv[]) {
       if ([arg isEqualToString:@"--load-system-extension"]) {
         DNSLogInfo(LogCategoryGeneral, "Requesting SystemExtension activation");
 
-        NSString* extensionID = @"com.dnshield.extension";
+        NSString* extensionID = kDefaultExtensionBundleID;
         dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
 
         OSSystemExtensionRequest* request =

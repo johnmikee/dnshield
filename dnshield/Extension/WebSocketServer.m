@@ -102,7 +102,7 @@ extern os_log_t logHandle;
     } else {
       // Check for enterprise-configured token first
       id configuredTokenObj = CFBridgingRelease(
-          CFPreferencesCopyAppValue(CFSTR("WebSocketAuthToken"), CFSTR("com.dnshield.app")));
+          CFPreferencesCopyAppValue(CFSTR("WebSocketAuthToken"), DNPreferenceDomainCF()));
 
       // Validate type to prevent crashes from unexpected preference values
       NSString* configuredToken = nil;

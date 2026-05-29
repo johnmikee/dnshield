@@ -15,6 +15,7 @@
 #import <Extension/Rule/Manager.h>
 #import <Extension/Rule/RuleDatabase.h>
 
+#import <Common/Defaults.h>
 #import "DNSCache.h"
 #import "DNSManifestResolver.h"
 #import "DNSProxyProvider.h"
@@ -155,7 +156,7 @@
 - (void)testConfigurationReloadTimer_CallsReloadManifestIfNeeded {
   // Given: Configuration reload timer fires
   OCMStub([self.mockPreferenceManager preferenceValueForKey:@"ManifestUpdateInterval"
-                                                   inDomain:@"com.dnshield.app"])
+                                                   inDomain:kDNShieldPreferenceDomain])
       .andReturn(@300);  // 5 minutes
 
   // Mock that we should use manifest
